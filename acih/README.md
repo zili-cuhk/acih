@@ -85,7 +85,7 @@ Raw files go under `app/data/` in the run directory:
 | Path | Source |
 | --- | --- |
 | `app/data/msk_met_2021/data_clinical_patient.txt`, `data_clinical_sample.txt` | cBioPortal datahub, `public/msk_met_2021` (Git LFS) |
-| `app/data/msk_met_2021/data_mutations.txt` | mutation calls of `msk_met_2021`: the datahub file (Git LFS) or the same calls from the cBioPortal web API (molecular profile `msk_met_2021_mutations`), saved as a tab-delimited file with columns `Hugo_Symbol`, `Tumor_Sample_Barcode` (sample identifier) and `Variant_Classification` (mutation type) |
+| `app/data/msk_met_2021/data_mutations.txt` | mutation calls of `msk_met_2021` from the cBioPortal web API: `Rscript app/msk_met_fetch_mutations.R` (needs internet, `curl` and the `jsonlite` package) writes the three columns used (`Hugo_Symbol`, `Tumor_Sample_Barcode`, `Variant_Classification`; 227,931 calls). The DataHub file (Git LFS) can be used instead |
 | `app/data/gene_panels/impact341.txt`, `impact410.txt`, `impact468.txt` | datahub `reference_data/gene_panels/data_gene_panel_impact*.txt` |
 | `app/data/nhis/samadult_<y>.csv`, `person_<y>.csv`, `NHIS_<y>_MORT_2019_PUBLIC.dat`, y = 2016–2018 | NCHS NHIS public-use files and Linked Mortality Files |
 

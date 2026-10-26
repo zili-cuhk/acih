@@ -98,8 +98,10 @@ Rscript acih.R tables         # tables from the summaries
 
 ## Data
 
-* **MSK-MET** (`msk_met_2021`): clinical files from the [cBioPortal DataHub](https://github.com/cBioPortal/datahub)
-  and mutation calls from the DataHub or the cBioPortal web API; preprocessing in `acih/inst/app/msk_met_prepare.R`.
+* **MSK-MET** (`msk_met_2021`): clinical files and IMPACT gene-panel files from the
+  [cBioPortal DataHub](https://github.com/cBioPortal/datahub); mutation calls from the cBioPortal web API with
+  `acih/inst/app/msk_met_fetch_mutations.R` (the analyses used the 227,931 calls this script returns);
+  preprocessing in `acih/inst/app/msk_met_prepare.R`.
 * **NHIS-LMF**: 2016–2018 National Health Interview Survey sample-adult and person files and the 2019 public-use
   Linked Mortality Files from the National Center for Health Statistics; preprocessing in
   `acih/inst/app/nhis_lmf_prepare.R`.
