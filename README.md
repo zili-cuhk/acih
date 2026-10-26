@@ -19,6 +19,7 @@ observed event.
 | `results/simulation/` | summaries of Studies 1–4: coordinate-level and coefficient-averaged results, screening diagnostics, the marginal pre-screen and the comparison of the two screening criteria |
 | `results/applications/` | summaries of the MSK-MET and NHIS-LMF analyses (selected sets, estimates, efficiency, sensitivity analyses, Kaplan–Meier summaries) and of the plasmode study |
 | `figures/` | the figures of the manuscript and its supplement, drawn from the files in `results/` |
+| `tables/` | the tables of the manuscript and its supplement (LaTeX `tabular` environments), computed from the files in `results/` |
 
 No individual-level data are included.
 
@@ -45,14 +46,15 @@ fit <- analyze_split(d$time, d$status, d$X, des$tau, sp, "gselo", r_vec = c(1000
 fit$table   # estimates and total-sandwich standard errors for every design and budget
 ```
 
-## Reproducing the figures from the summaries
+## Reproducing the figures and tables from the summaries
 
 ```r
 library(acih)
 make_figures_from_csv(sim_dir = "results/simulation", app_dir = "results/applications", out = "figures")
+make_tables_from_csv(sim_dir = "results/simulation", app_dir = "results/applications", out = "tables")
 ```
 
-This redraws every figure in a few seconds without refitting.
+This redraws every figure and rewrites every table in a few seconds without refitting.
 
 | Figure | File |
 | --- | --- |
@@ -62,6 +64,20 @@ This redraws every figure in a few seconds without refitting.
 | Figure 4 | `fig_real_data_efficiency.pdf` |
 | Figure 5 | `fig_plasmode.pdf` |
 | Web Figures 1–3 | `fig_S1_calibration.pdf`, `fig_S2_calibration.pdf`, `fig_real_data_km.pdf` |
+
+| Table | File |
+| --- | --- |
+| Table 1 | `tab_sim_design.tex` |
+| Table 2 | `tab_real_data_primary.tex` |
+| Table 3 | `tab_real_data_efficiency.tex` |
+| Web Tables 1–6 (Study 1) | `tab_supp_s1_cp.tex`, `tab_supp_s1_ratio.tex`, `tab_supp_s1_ail.tex`, `tab_supp_variance_ablation.tex`, `tab_supp_contrast.tex`, `tab_supp_gamma_only.tex` |
+| Web Tables 7–8 (Study 2) | `tab_supp_s2.tex` |
+| Web Tables 9–13 (Study 3) | `tab_supp_screening_challenges.tex`, `tab_supp_ebic_compare.tex`, `tab_supp_misspec.tex`, `tab_supp_marginal_prescreen_pgeqn.tex` |
+| Web Table 14 (Study 4) | `tab_supp_s4.tex` |
+| Web Tables 15–22 (data analyses) | `tab_supp_real_screening.tex`, `tab_supp_primary_msk_met.tex`, `tab_supp_primary_nhis_lmf.tex`, `tab_supp_cap_genomic.tex`, `tab_supp_budget_*.tex`, `tab_supp_nhis_survey_sensitivity.tex` |
+| Web Tables 23–25 (plasmode) | `tab_supp_plasmode.tex` |
+
+Web Tables 7–8, 9–10 and 23–25 are single tables split over pages in the supplement.
 
 ## Reproducing the full study
 
@@ -75,7 +91,9 @@ cd acih_run
 bash hpc/submit_all.sh        # Studies 1-4 and their summaries
 bash hpc/submit_apps.sh       # data analyses (raw files under app/data/, see below)
 bash hpc/submit_plasmode.sh   # plasmode study, after the data analyses
+bash hpc/submit_screencmp.sh  # comparison of the two screening criteria
 Rscript acih.R figures        # figures from the summaries
+Rscript acih.R tables         # tables from the summaries
 ```
 
 ## Data

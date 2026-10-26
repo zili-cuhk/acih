@@ -243,6 +243,8 @@ summarize_apps <- function(dir = ".", cohorts = names(app_cohorts())) {
     fig_km2(km$curves, km$risk, file.path(od, "fig_real_data_km.pdf"), lab[names(S)],
             vapply(names(S), function(x) paste0(app_cohorts()[[x]]$unit, "s"), ""))
   }
+  ## size-cap sensitivity of the genomic analysis (Web Appendix C)
+  if ("msk_met_genomic" %in% names(S)) app_cap_sensitivity(dir, "msk_met_genomic", cap = 20)
   invisible(S)
 }
 METHODS_APP <- c("SplitFull", "UIPW", "SIPW", "IIPW", "PUIPW", "PIIPW", "CaseCohort")
@@ -311,4 +313,31 @@ app_km_data <- function(dir, S) {
     }
   }
   list(curves = do.call(rbind, cu), risk = do.call(rbind, ri))
+}
+
+## ---------------------------------------------------------------------
+## Size-cap sensitivity: rerun the GSELO screen of all 100 splits with a
+## smaller size cap (20, the simulation cap) and the split-full refit of the
+## primary split; writes <cohort>_cap<cap>_frequency.csv (selection
+## frequency over splits) and <cohort>_cap<cap>_primary.csv to app/results/
+## and returns the proportion of splits whose selected set reached the cap.
+## ---------------------------------------------------------------------
+app_cap_sensitivity <- function(dir = ".", cohort = "msk_met_genomic", cap = 20, n_split = 100) {
+  co <- load_cohort(dir, cohort); n <- nrow(co$X); od <- file.path(dir, "app", "results")
+  dir.create(od, showWarnings = FALSE, recursive = TRUE)
+  sel <- vector("list", n_split); sz <- numeric(n_split)
+  for (k in seq_len(n_split)) {
+    sp <- primary_split(n, if (k == 1) APP_SEED else APP_SEED + k); s <- sp$scr
+    sc <- screen_gselo(co$data$time[s], co$data$status[s], co$X[s, , drop = FALSE], co$tau, cap = cap)
+    sel[[k]] <- colnames(co$X)[sc$A]; sz[k] <- length(sc$A)
+  }
+  fr <- sort(table(unlist(sel)) / n_split, decreasing = TRUE)
+  stem <- file.path(od, sprintf("%s_cap%d", cohort, cap))
+  utils::write.csv(data.frame(var = names(fr), freq = as.numeric(fr)), paste0(stem, "_frequency.csv"), row.names = FALSE)
+  sp <- primary_split(n, APP_SEED)
+  p <- analyze_split(co$data$time, co$data$status, co$X, co$tau, sp, "gselo", cap = cap, subsample = FALSE)
+  utils::write.csv(p$table, paste0(stem, "_primary.csv"), row.names = FALSE)
+  at_cap <- mean(sz >= cap)
+  message(sprintf("%s, cap %d: selected set at the cap in %.0f%% of %d splits", cohort, cap, 100 * at_cap, n_split))
+  invisible(at_cap)
 }

@@ -20,6 +20,7 @@ study of Section 4 (Studies 1–4), the data-analysis protocol of Section 5 and 
 | `R/10_summarize.R` | tables (CSV, LaTeX) and figures |
 | `R/12_figures.R` | figure style and drawing; `make_figures_from_csv()` (`Rscript acih.R figures`) redraws all figures from the summary CSV files |
 | `R/11_plasmode.R` | plasmode study on the processed cohorts (support-known refits with real covariates) |
+| `R/13_tables.R` | `make_tables_from_csv()` (`Rscript acih.R tables`) writes every table of the manuscript and supplement from the summary CSV files |
 | `inst/scripts/acih.R` | command-line entry point |
 | `inst/hpc/` | LSF scripts (queue names and limits may need local adjustment) |
 | `inst/app/` | MSK-MET (clinical and genomic) and NHIS-LMF preprocessing |
@@ -98,6 +99,8 @@ clinical candidates), `msk_met_genomic` (the clinical candidates plus mutation i
 IMPACT panels mutated in at least 1% of patients) and `nhis_lmf`. Split 1 is the prespecified primary split
 (seed 20260701) and also carries the fixed-budget (K = 5, 10, 15) and survey-weighted sensitivity analyses.
 Results: `app/out/<cohort>/split_*.rds`; tables and figures in `app/results/`.
+`app_summarize` also reruns the screen of the genomic analysis with the simulation cap of 20 (`app_cap_sensitivity()`,
+also available as `Rscript acih.R app_cap20`), which gives `msk_met_genomic_cap20_*.csv`.
 
 The GSELO screen is computed on the time scale on which the crude event rate of the screening data on
 `[0, tau]` equals one (`time_scale = "rate"` in `screen_gselo`), so the selected set does not depend on the unit
