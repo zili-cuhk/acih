@@ -1,0 +1,4 @@
+"cohort","n_support","n_A","lambda0","crude","events_obs","events_sim","support"
+"msk_met",9,11,0.0178767439075745,0.0178767439075745,0.408167419893327,0.40817,"age_std male sample_metastasis fga_std organ_thoracic organ_genitourinary organ_developmental_gi organ_head_neck cancer_nsclc"
+"msk_met_genomic",11,27,0.0178767439075745,0.0178767439075745,0.408167419893327,0.40818,"age_std male sample_metastasis fga_std organ_thoracic organ_developmental_gi organ_head_neck cancer_nsclc mut_KRAS mut_STK11 mut_TP53"
+"nhis_lmf",13,18,0.0570866043554635,0.0128251241410285,0.0304149337922463,0.030415,"age_std male bmi_std self_rated_health_std married myocardial_infarction stroke copd cancer_history chd arthritis kidney bachelor_degree"

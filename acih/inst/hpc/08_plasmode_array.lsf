@@ -1,0 +1,15 @@
+#!/bin/bash
+## plasmode study: one cohort x 25 replicates per task; NTASK filled in by hpc/submit_plasmode.sh
+#BSUB -J "acihpls[1-NTASK]%300"
+#BSUB -q medium
+#BSUB -W 4:00
+#BSUB -n 1
+#BSUB -M 16G
+#BSUB -R "rusage[mem=16] span[hosts=1]"
+#BSUB -o logs/pls.%J.%I.out
+#BSUB -e logs/pls.%J.%I.err
+module load R/4.5.1
+cd $LS_SUBCWD
+export R_LIBS=${ACIH_LIB:-$HOME/Rlib}${R_LIBS:+:$R_LIBS}
+export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
+Rscript acih.R plasmode $LSB_JOBINDEX

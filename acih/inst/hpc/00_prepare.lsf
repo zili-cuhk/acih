@@ -1,0 +1,15 @@
+#!/bin/bash
+#BSUB -J acih_prepare
+#BSUB -q medium
+#BSUB -W 12:00
+#BSUB -n 1
+#BSUB -M 32G
+#BSUB -R "rusage[mem=32] span[hosts=1]"
+#BSUB -o logs/prepare.%J.out
+#BSUB -e logs/prepare.%J.err
+## calibrate censoring for every design and compute least-false targets (once)
+module load R/4.5.1
+cd $LS_SUBCWD
+export R_LIBS=${ACIH_LIB:-$HOME/Rlib}${R_LIBS:+:$R_LIBS}
+export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
+Rscript acih.R prepare

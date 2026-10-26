@@ -1,0 +1,2 @@
+"cohort","splits","size_mean","size_min","size_max","cap","converged","boundary","t_screen","events_inf","n_inf","neg_hazard"
+"nhis_lmf",100,17.22,14,21,0,1,0,0.21318,1270.26,41838,0.276520866198193

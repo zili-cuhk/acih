@@ -1,0 +1,12 @@
+#!/bin/bash
+#BSUB -J acihscrsum
+#BSUB -q medium
+#BSUB -W 4:00
+#BSUB -n 1
+#BSUB -M 8G
+#BSUB -o logs/scrsum.%J.out
+#BSUB -e logs/scrsum.%J.err
+module load R/4.5.1
+cd $LS_SUBCWD
+export R_LIBS=${ACIH_LIB:-$HOME/Rlib}${R_LIBS:+:$R_LIBS}
+Rscript acih.R screencmp_summarize

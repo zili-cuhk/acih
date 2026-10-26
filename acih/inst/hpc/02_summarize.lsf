@@ -1,0 +1,14 @@
+#!/bin/bash
+#BSUB -J acih_summary
+#BSUB -q medium
+#BSUB -W 4:00
+#BSUB -n 1
+#BSUB -M 16G
+#BSUB -R "rusage[mem=16] span[hosts=1]"
+#BSUB -o logs/summary.%J.out
+#BSUB -e logs/summary.%J.err
+module load R/4.5.1
+cd $LS_SUBCWD
+export R_LIBS=${ACIH_LIB:-$HOME/Rlib}${R_LIBS:+:$R_LIBS}
+export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
+Rscript acih.R summarize

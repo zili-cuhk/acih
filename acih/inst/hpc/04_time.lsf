@@ -1,0 +1,15 @@
+#!/bin/bash
+#BSUB -J acih_time
+#BSUB -q medium
+#BSUB -W 12:00
+#BSUB -n 1
+#BSUB -M 32G
+#BSUB -R "rusage[mem=32] span[hosts=1]"
+#BSUB -o logs/time.%J.out
+#BSUB -e logs/time.%J.err
+## time one replicate of the heaviest designs (after prepare)
+module load R/4.5.1
+cd $LS_SUBCWD
+export R_LIBS=${ACIH_LIB:-$HOME/Rlib}${R_LIBS:+:$R_LIBS}
+export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
+Rscript acih.R time S2_n200k_p1000_U50 S2_n100k_p500_U50 S3_t5 S1_m50k_U50 S3_pn_ar85_alt

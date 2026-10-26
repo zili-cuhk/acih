@@ -1,0 +1,15 @@
+#!/bin/bash
+## simulation array; the index range NTASK is filled in by hpc/submit_all.sh
+#BSUB -J "acih[1-NTASK]%400"
+#BSUB -q medium
+#BSUB -W 24:00
+#BSUB -n 1
+#BSUB -M 24G
+#BSUB -R "rusage[mem=24] span[hosts=1]"
+#BSUB -o logs/sim.%J.%I.out
+#BSUB -e logs/sim.%J.%I.err
+module load R/4.5.1
+cd $LS_SUBCWD
+export R_LIBS=${ACIH_LIB:-$HOME/Rlib}${R_LIBS:+:$R_LIBS}
+export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
+Rscript acih.R $LSB_JOBINDEX

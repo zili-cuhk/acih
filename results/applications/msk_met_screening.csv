@@ -1,0 +1,2 @@
+"cohort","splits","size_mean","size_min","size_max","cap","converged","boundary","t_screen","events_inf","n_inf","neg_hazard"
+"msk_met",100,11.58,9,14,0,1,0.01,0.12076,5013.51,12281,0.00870124582688706

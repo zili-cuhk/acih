@@ -1,0 +1,24 @@
+## estimating equations and refits
+export(ah_bV, ah_setup, q_scores, xi_scores, ah_fit_full, ah_fit_ipw, ah_fit_poisson, ah_fit_casecohort, pilot_fit)
+## allocation and subsampling
+export(allocate, ipw_probs, draw_ipw, poisson_inclusion, poisson_scores)
+## data generation
+export(make_design, calibrate_design, gen_data, gen_X, population_target)
+## screening
+export(screen_gselo, screen_marginal, screen_topk_unpen, gselo_path, ebic_select)
+## simulation study
+export(ipw_methods_default, run_rep_known, run_rep_pipeline, run_rep_marginal)
+export(design_table, prepare_designs, load_designs, sim_task_table, run_task, time_designs)
+export(summarize_results, setup_run_dir, smoke_test)
+## data analysis
+export(primary_split, analyze_split, ah_fit_survey, km, app_cohorts, app_task_table, load_cohort,
+       run_app_task, summarize_apps, fig_app_efficiency, fig_app_km)
+## plasmode study
+export(plasmode_design, plasmode_data, run_rep_plasmode, run_rep_plasmode_known, prepare_plasmode,
+       plasmode_task_table, run_plasmode_task, summarize_plasmode)
+## figures
+export(fig_calibration2, fig_efficiency2, fig_failure2, fig_app_efficiency2, fig_plasmode2, fig_km2, make_sim_figures, app_km_data)
+import(stats, utils, graphics, grDevices)
+export(screencmp_task_table, run_screencmp_task, summarize_screencmp, screencmp_rep)
+export(make_figures_from_csv)
+export(fig_calibration_summary)

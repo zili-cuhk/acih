@@ -1,0 +1,2 @@
+"cohort","splits","size_mean","size_min","size_max","cap","converged","boundary","t_screen","events_inf","n_inf","neg_hazard"
+"msk_met_genomic",100,24.38,17,33,0,1,0,0.5608,5013.51,12281,0.0297093070596857
