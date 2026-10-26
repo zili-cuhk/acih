@@ -154,7 +154,7 @@ tables_simulation <- function(sim_dir, out) {
       }
     rows <- c(rows, "\\addlinespace")
   }
-  .tabular("lrrlrrrrrr", "Design & Sure & Mean \\(|\\widehat S|\\) & Method & \\(r\\) & \\(n\\) & Ratio & CP & Pipeline & AIL\\\\",
+  .tabular("lrrlrrrrrr", "Design & Sure & Mean \\(|\\widehat S|\\) & Method & \\(r\\) & Ret. & Ratio & CP & Pipeline & AIL\\\\",
            .trim(rows), file.path(out, "tab_supp_screening_challenges.tex"))
   rows <- character()
   for (d in c(S3_tv = "Time-varying coefficient", S3_frailty = "Shared frailty (dependent censoring)")) {
@@ -181,7 +181,7 @@ tables_simulation <- function(sim_dir, out) {
                          sprintf("%s (%s, %s)", .f3(x$candidate), .f3(x$cand_lo), .f3(x$cand_hi)),
                          if (x$m == 0) "--" else sprintf("%s (%d)", .f3(x$gselo_cond), as.integer(x$m)), .f3(x$final), .f3(x$risk_gate)))
   }
-  .tabular("lrrrrr", "Design & \\(K_n\\) & Candidate (95\\% CI) & GSELO (\\(m\\)) & Final & Risk\\\\", rows,
+  .tabular("lrrrrr", "Design & \\(K_n\\) & Candidate (95\\% CI) & GSELO (count) & Final & Risk\\\\", rows,
            file.path(out, "tab_supp_marginal_prescreen_pgeqn.tex"))
   ## Study 4
   rows <- character()
@@ -218,7 +218,7 @@ tables_simulation <- function(sim_dir, out) {
     }
     .tabular("lrrrrrrr", paste0("Design & Events & \\multicolumn{2}{c}{Sure} & \\multicolumn{2}{c}{Exact} & \\multicolumn{2}{c}{Size}\\\\\n",
                                 "\\cmidrule(lr){3-4}\\cmidrule(lr){5-6}\\cmidrule(lr){7-8}\n",
-                                " & & \\(\\log n\\) & \\(\\log D\\) & \\(\\log n\\) & \\(\\log D\\) & \\(\\log n\\) & \\(\\log D\\)\\\\"),
+                                " & & \\(\\log n\\) & \\(\\log N\\) & \\(\\log n\\) & \\(\\log N\\) & \\(\\log n\\) & \\(\\log N\\)\\\\"),
              rows, file.path(out, "tab_supp_ebic_compare.tex"))
   }
   invisible(TRUE)
